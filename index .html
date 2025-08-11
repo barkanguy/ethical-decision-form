@@ -1,0 +1,276 @@
+<!doctype html>
+
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>שאלון זיהוי: אתית או מקצועית</title>
+  <style>
+    :root{--bg:#0b1020;--card:#111734;--ink:#e9ecf8;--muted:#b7c0e0;--accent:#5b8cff;--ok:#22c55e;--warn:#f59e0b;--bad:#ef4444}
+    *{box-sizing:border-box}
+    body{margin:0;background:linear-gradient(180deg,#0b1020,#0e1533);color:var(--ink);font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,"Apple Color Emoji","Segoe UI Emoji"}
+    .wrap{max-width:920px;margin:40px auto;padding:0 16px}
+    header{display:flex;gap:12px;align-items:center;justify-content:space-between;margin-bottom:18px}
+    h1{font-size:clamp(22px,3.4vw,34px);margin:0}
+    .card{background:var(--card);border:1px solid #1f2754;box-shadow:0 10px 30px rgba(0,0,0,.35);border-radius:18px;padding:18px 18px}
+    .lead{color:var(--muted);font-size:15px;margin:8px 0 0}
+    .section{margin-top:18px}
+    .section h2{font-size:18px;margin:0 0 8px}
+    fieldset{border:1px solid #223067;border-radius:14px;padding:14px;margin:0 0 12px}
+    legend{padding:0 8px;color:var(--muted);font-size:14px}
+    .q{display:grid;grid-template-columns:1fr auto auto;gap:10px;align-items:center;padding:10px;border-radius:10px}
+    .q:nth-child(even){background:rgba(255,255,255,.03)}
+    .q label{font-size:15px}
+    .opts{display:flex;gap:16px}
+    .opts label{display:flex;gap:6px;align-items:center;cursor:pointer}
+    .row{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
+    button{border:0;border-radius:12px;padding:10px 14px;background:var(--accent);color:#fff;font-weight:600;cursor:pointer;transition:.2s}
+    button.secondary{background:#2a376f}
+    button.ghost{background:transparent;border:1px solid #2a376f;color:var(--muted)}
+    button:hover{filter:brightness(1.08)}
+    .result{margin-top:18px;display:none}
+    .result.show{display:block}
+    .pill{display:inline-block;padding:4px 10px;border-radius:999px;font-size:12px;margin-inline-start:6px}
+    .pill.ok{background:rgba(34,197,94,.14);color:#96e7b2;border:1px solid rgba(34,197,94,.35)}
+    .pill.warn{background:rgba(245,158,11,.14);color:#ffd79a;border:1px solid rgba(245,158,11,.35)}
+    .pill.bad{background:rgba(239,68,68,.14);color:#ffb1b1;border:1px solid rgba(239,68,68,.35)}
+    .counts{display:flex;gap:12px;flex-wrap:wrap;margin:8px 0}
+    .count{background:#0d1430;border:1px solid #1f2754;border-radius:12px;padding:8px 12px}
+    .summary{white-space:pre-wrap;line-height:1.6}
+    .footnote{color:var(--muted);font-size:12.5px;margin-top:10px}
+    .req{color:#9fd2ff;font-size:12px;margin:0 0 6px}
+    .grid-2{display:grid;grid-template-columns:1fr;gap:10px}
+    @media(min-width:720px){.grid-2{grid-template-columns:1fr 1fr}}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <h1>שאלון זיהוי: אתית או מקצועית</h1>
+      <div class="pill warn">אב-טיפוס לשימוש פנימי</div>
+    </header><div class="card">
+  <p class="lead">סמנו לכל שאלה ״כן/לא״. בסיום לחצו על ״חשב סיכום״ כדי לקבל פסקה מסכמת והמלצה לפעולה. ניתן להדפיס/לייצא ל‑PDF.</p>
+</div>
+
+<form id="form" class="section">
+  <div class="req">שדות חובה: מומלץ לענות על כל השאלות, אך החישוב יפעל גם אם חלקן לא סומנו.</div>
+
+  <!-- חלק 1 – אתי -->
+  <fieldset class="section">
+    <legend>חלק 1 – היבט אתי</legend>
+    <div class="q" data-category="ethical">
+      <label>האם ההתלבטות נוגעת לערכים, זכויות או עקרונות מוסריים?</label>
+      <div class="opts">
+        <label><input type="radio" name="q1" value="כן"/> כן</label>
+        <label><input type="radio" name="q1" value="לא"/> לא</label>
+      </div>
+    </div>
+    <div class="q" data-category="ethical">
+      <label>האם יש פוטנציאל לפגיעה בפרטיות, בכבוד האדם או בזכויות המטופל?</label>
+      <div class="opts">
+        <label><input type="radio" name="q2" value="כן"/> כן</label>
+        <label><input type="radio" name="q2" value="לא"/> לא</label>
+      </div>
+    </div>
+    <div class="q" data-category="ethical">
+      <label>האם אני מתלבט בין שתי אפשרויות פעולה שלכל אחת השלכות מוסריות שונות?</label>
+      <div class="opts">
+        <label><input type="radio" name="q3" value="כן"/> כן</label>
+        <label><input type="radio" name="q3" value="לא"/> לא</label>
+      </div>
+    </div>
+    <div class="q" data-category="ethical">
+      <label>האם יש קונפליקט בין הקוד האתי לבין ציפיות הארגון, החוק או רצון המטופל?</label>
+      <div class="opts">
+        <label><input type="radio" name="q4" value="כן"/> כן</label>
+        <label><input type="radio" name="q4" value="לא"/> לא</label>
+      </div>
+    </div>
+    <div class="q" data-category="ethical">
+      <label>האם ההחלטה עשויה להשפיע על האמון של המטופל או הציבור במקצוע?</label>
+      <div class="opts">
+        <label><input type="radio" name="q5" value="כן"/> כן</label>
+        <label><input type="radio" name="q5" value="לא"/> לא</label>
+      </div>
+    </div>
+  </fieldset>
+
+  <!-- חלק 2 – מקצועי -->
+  <fieldset class="section">
+    <legend>חלק 2 – היבט מקצועי</legend>
+    <div class="q" data-category="professional">
+      <label>האם ההתלבטות נוגעת לבחירת שיטה, פרוטוקול או כלי עבודה מקצועי?</label>
+      <div class="opts">
+        <label><input type="radio" name="q6" value="כן"/> כן</label>
+        <label><input type="radio" name="q6" value="לא"/> לא</label>
+      </div>
+    </div>
+    <div class="q" data-category="professional">
+      <label>האם אני מחפש מידע מבוסס ראיות או ידע קליני כדי לבחור דרך פעולה?</label>
+      <div class="opts">
+        <label><input type="radio" name="q7" value="כן"/> כן</label>
+        <label><input type="radio" name="q7" value="לא"/> לא</label>
+      </div>
+    </div>
+    <div class="q" data-category="professional">
+      <label>האם ניתן לפתור את השאלה בעזרת הנחיות מקצועיות, נהלים או מחקר עדכני?</label>
+      <div class="opts">
+        <label><input type="radio" name="q8" value="כן"/> כן</label>
+        <label><input type="radio" name="q8" value="לא"/> לא</label>
+      </div>
+    </div>
+    <div class="q" data-category="professional">
+      <label>האם אין כאן קונפליקט ערכי, אלא רק צורך לבחור את הדרך היעילה או הבטוחה ביותר?</label>
+      <div class="opts">
+        <label><input type="radio" name="q9" value="כן"/> כן</label>
+        <label><input type="radio" name="q9" value="לא"/> לא</label>
+      </div>
+    </div>
+    <div class="q" data-category="professional">
+      <label>האם הדיון הוא בעיקר טכני/מדעי ולא ערכי/מוסרי?</label>
+      <div class="opts">
+        <label><input type="radio" name="q10" value="כן"/> כן</label>
+        <label><input type="radio" name="q10" value="לא"/> לא</label>
+      </div>
+    </div>
+  </fieldset>
+
+  <!-- חלק 3 – גם וגם -->
+  <fieldset class="section">
+    <legend>חלק 3 – מקרים גבוליים ("גם וגם")</legend>
+    <div class="q" data-category="mixed">
+      <label>האם ההחלטה משלבת גם שיקול ערכי וגם שיקול מקצועי?</label>
+      <div class="opts">
+        <label><input type="radio" name="q11" value="כן"/> כן</label>
+        <label><input type="radio" name="q11" value="לא"/> לא</label>
+      </div>
+    </div>
+    <div class="q" data-category="mixed">
+      <label>האם יש צורך בהתייעצות גם עם גורם מקצועי וגם עם ועדת אתיקה/יועץ אתי?</label>
+      <div class="opts">
+        <label><input type="radio" name="q12" value="כן"/> כן</label>
+        <label><input type="radio" name="q12" value="לא"/> לא</label>
+      </div>
+    </div>
+  </fieldset>
+
+  <div class="row">
+    <button type="button" id="calc">חשב סיכום</button>
+    <button type="reset" class="secondary" id="clear">נקה סימונים</button>
+    <button type="button" class="ghost" id="print">הדפס / PDF</button>
+  </div>
+</form>
+
+<div id="result" class="card result" aria-live="polite">
+  <h2 style="margin-top:0">סיכום ותובנות</h2>
+  <div class="counts" id="counts"></div>
+  <div id="badge"></div>
+  <div class="summary" id="summary"></div>
+  <div class="footnote">ההמלצה היא כלי עזר ואינה תחליף לשיקול דעת מקצועי, נהלי מוסד, חקיקה וייעוץ אתי/משפטי לפי הצורך.</div>
+</div>
+
+  </div>  <script>
+    const byName = name => [...document.querySelectorAll(`input[name="${name}"]`)];
+    const qBlocks = [...document.querySelectorAll('.q')];
+
+    function tally(){
+      const counts = { ethical:0, professional:0, mixed:0, totalAnswered:0 };
+      qBlocks.forEach((q,i)=>{
+        const name = `q${i+1}`;
+        const chosen = byName(name).find(r=>r.checked);
+        if(chosen){
+          counts.totalAnswered++;
+          if(chosen.value === 'כן'){
+            const cat = q.dataset.category;
+            counts[cat]++;
+          }
+        }
+      });
+      return counts;
+    }
+
+    function decide(counts){
+      const {ethical, professional, mixed} = counts;
+      const diff = Math.abs(ethical - professional);
+      // כללים:
+      // 1) יתרון ברור (פער ≥2) → אתי/מקצועי בהתאם.
+      // 2) אם הפער קטן (≤1) ויש אינדיקציה "גם וגם" → משולבת.
+      // 3) אחרת – מי שביתרון קל.
+      if (Math.abs(ethical - professional) >= 2){
+        return ethical > professional ? 'ethical' : 'professional';
+      }
+      if (diff <= 1 && mixed > 0){
+        return 'mixed';
+      }
+      return ethical >= professional ? 'ethical' : 'professional';
+    }
+
+    function summaryText(kind, c){
+      const baseCounts = `\n• סימוני "כן" – אתי: ${c.ethical} | מקצועי: ${c.professional} | גם‑וגם: ${c.mixed}`;
+      if(kind === 'ethical'){
+        return (
+          'על פי התשובות, מדובר בעיקרו ב\u200fשאלה אתית.\n' +
+          'הצעדים המומלצים:\n' +
+          '• עיינו בקוד האתי והנחיות מוסדיות רלוונטיות.\n' +
+          '• בדקו חובות דיווח, שמירה על פרטיות וזכויות מטופל.\n' +
+          '• שקלו פנייה לוועדת אתיקה/יועץ אתי, במיוחד אם יש סיכון לפגיעה בזכויות.\n' +
+          '• תעדו את השיקולים וההחלטה.\n' + baseCounts
+        );
+      }
+      if(kind === 'professional'){
+        return (
+          'על פי התשובות, מדובר בעיקרו ב\u200fשאלה מקצועית.\n' +
+          'הצעדים המומלצים:\n' +
+          '• הסתמכו על נהלים, פרוטוקולים ומידע מבוסס ראיות.\n' +
+          '• שקלו ייעוץ עמיתים/מומחה תחום לבחירת הכלי/השיטה המתאימה.\n' +
+          '• תעדו את הרציונל המקצועי והערכת סיכונים/תועלות.\n' + baseCounts
+        );
+      }
+      return (
+        'על פי התשובות, מדובר בשאלה משולבת – משלבת היבטים אתיים ומקצועיים.\n' +
+        'הצעדים המומלצים:\n' +
+        '• קיום התייעצות כפולה: מומחה מקצועי/קליני לצד יועץ אתי/ועדת אתיקה.\n' +
+        '• איזון בין בטיחות/יעילות לבין זכויות, פרטיות ואמון.\n' +
+        '• עיגון ההחלטה במסמכי מדיניות וחקיקה רלוונטיים, ותיעוד נימוקים.\n' +
+        `• אם הדילמה נמשכת – שקלו העלאה לדיון רב-מקצועי.\n` +
+        baseCounts
+      );
+    }
+
+    function badge(kind){
+      const map = {
+        ethical:{txt:'סיווג: אתית', cls:'pill ok'},
+        professional:{txt:'סיווג: מקצועית', cls:'pill ok'},
+        mixed:{txt:'סיווג: משולבת', cls:'pill warn'}
+      };
+      const b = map[kind];
+      return `<span class="${b.cls}">${b.txt}</span>`;
+    }
+
+    function render(){
+      const c = tally();
+      const kind = decide(c);
+      // counts chips
+      const countsHtml = `
+        <div class="count">אתי: <b>${c.ethical}</b></div>
+        <div class="count">מקצועי: <b>${c.professional}</b></div>
+        <div class="count">גם‑וגם: <b>${c.mixed}</b></div>
+        <div class="count">נענו: <b>${c.totalAnswered}</b> / 12</div>
+      `;
+      document.getElementById('counts').innerHTML = countsHtml;
+      document.getElementById('badge').innerHTML = badge(kind);
+      document.getElementById('summary').textContent = summaryText(kind, c);
+      document.getElementById('result').classList.add('show');
+      window.scrollTo({top:document.getElementById('result').offsetTop - 10, behavior:'smooth'});
+    }
+
+    document.getElementById('calc').addEventListener('click', render);
+    document.getElementById('clear').addEventListener('click', ()=>{
+      document.getElementById('result').classList.remove('show');
+      document.getElementById('counts').innerHTML = '';
+      document.getElementById('badge').innerHTML = '';
+      document.getElementById('summary').textContent = '';
+    });
+    document.getElementById('print').addEventListener('click', ()=>window.print());
+  </script></body>
+</html>
